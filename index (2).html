@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>	</title>
+	<style type="text/css">
+		.sphere {
+			width: 150px;
+			height: 150px;
+			position: absolute;
+			transition: all 0.8s ease-out;
+			top: -150px;
+			background-image: url(2.png);
+			background-size: 100% 100%;
+		}
+		.ground {
+			background: green;
+			position: absolute;
+			height: 50px;
+			top:  900px;
+		}
+		.img {
+            position: absolute;
+            height: 1000px;
+            width: 2000px;
+            background-image: url(1.jpg);
+            background-size: 100% 100%;
+        }
+        .img2 {
+            position: absolute;
+            height: 1000px;
+            width: 2000px;
+            background-image: url(3.jpg);
+            background-size: 100% 100%;
+            display: none;
+        }
+        .img3 {
+            position: absolute;
+            height: 1000px;
+            width: 2000px;
+            background-image: url(4.jpg);
+            background-size: 100% 100%;
+            display: none;
+        }
+        .text1 {
+			color: white;
+			font-family: kolya;
+			font-size: 100px;
+			margin: 0px;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+<div class="img"></div>
+<div class="img2"></div>
+<div class="img3"></div>
+<div class="ground">
+	
+</div>
+
+
+<script type="text/javascript">
+
+	let randomizer = function(arg) {
+        let random = Math.random() * arg;
+        let round = Math.round(random);
+        return round;
+    }
+
+    for(let i=0; i<10; i=i+1){
+    	let box = document.createElement("div");
+    	document.body.appendChild(box);
+    	box.classList.add("sphere");
+    	box.style.left = 400 + randomizer(900) + "px";
+    }
+
+    let spheres = document.querySelectorAll(".sphere");
+    let topSph = 0;
+    let id = 0;
+    let img2 = document.querySelector(".img2");
+    let img3 = document.querySelector(".img3");
+    let img = document.querySelector(".img");
+    let popytka = 1;
+    for(let i=0; i<10; i=i+1){
+    	spheres[i].onclick = function() {
+    		spheres[i].style.display = "none";
+    		topSph = 0;
+    		id = id + 1;
+    	}
+    }
+
+    let upTop = function(arg) {
+    	topSph = topSph + 150;
+    	spheres[id].style.top = topSph + "px";
+
+    	if(topSph>=1000){
+    		popytka = popytka - 1;
+    		topSph = 0;
+    		spheres[id].style.display = "none";
+    		id = id + 1;
+    		if(id==10){
+    			setTimeout(stopGame, 300);
+    		}
+    		if(popytka==0){
+    			setTimeout(endGame, 100);
+    		}
+    	}
+    }
+
+    let Myint = setInterval(upTop, 300)
+
+    let stopGame = function(arg) {
+			clearInterval(Myint);
+			img.style.display = "none";
+			img2.style.display = "block";
+		}
+
+	let endGame = function(arg) {
+			clearInterval(Myint);
+			img.style.display = "none";
+			img3.style.display = "block";
+		}
+	
+	/*
+		функция рандомайзер = {
+			.....
+		}
+		
+		цикл(10) {
+		создаём элемент див
+		поместить в боди
+		задать класс sphere
+		див лефт = рандомайзер ()
+		}
+		
+		
+		сферы = document.querySelectorAll(".sphere");
+		topSph = 0; название переменной не была просто top
+		let id = 0;
+
+		цикл(10) {
+			сферы[i] клик = {
+				сферы[i] исчезни
+				topSph = 900;
+			}
+		}
+
+		функция увеличить топ = {
+			topSph = topSph + 150
+			сферы[0] топ = topSph + px
+
+			If(topSph>=1000){
+				topSph = 0;
+				сферы[id] исчезни
+				id = id + 1; чтобы переход был к след сфере
+				If(id==9){
+					вызвать функцию остановить игру
+				}
+			}
+
+		}
+
+		let Myint = интервал(увеличить топ, 300)
+
+		функция остановить игру = {
+			clearInterval(Myint)
+		}
+	*/
+</script>
+
+</body>
+</html>
